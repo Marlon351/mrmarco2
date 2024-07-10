@@ -1,41 +1,23 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link } from "react-scroll";
-import { useDispatch, useSelector } from "react-redux";
-import { setMenuTypes, selectMenuTypes } from "../features/items/menuTypeSlice";
-import db from "../firebase";
 
 const Categories = () => {
-    const dispatch = useDispatch();
-    const menuTypes = useSelector(selectMenuTypes);
-
-    useEffect(() => {
-        const fetchMenuTypes = async () => {
-            const menuTypesArray = [];
-            const snapshot = await db.collection("menuTypes").get();
-            snapshot.forEach((doc) => {
-                menuTypesArray.push({ id: doc.id, ...doc.data() });
-            });
-            dispatch(setMenuTypes(menuTypesArray));
-        };
-
-        fetchMenuTypes();
-    }, [dispatch]);
-
     return (
         <Nav>
             <Menu>
-                {menuTypes && menuTypes.length > 0 && menuTypes.map((type) => (
-                    <StyledLink
-                        key={type.id}
-                        to={type.type}
-                        smooth={true}
-                        duration={200}
-                        offset={-143}
-                    >
-                        <CategoryTitle>{type.type.toUpperCase()}</CategoryTitle>
-                    </StyledLink>
-                ))}
+                <StyledLink to="hot-cold-subs" smooth={true} duration={200} offset={-143}>
+                    <CategoryTitle>HOT OR COLD SUBS</CategoryTitle>
+                </StyledLink>
+                <StyledLink to="white-wraps" smooth={true} duration={200} offset={-143}>
+                    <CategoryTitle>WHITE WRAPS OR WHOLE WHEAT</CategoryTitle>
+                </StyledLink>
+                <StyledLink to="plain-pizza" smooth={true} duration={200} offset={-143}>
+                    <CategoryTitle>PLAIN PIZZA</CategoryTitle>
+                </StyledLink>
+                <StyledLink to="specialty-pizza" smooth={true} duration={200} offset={-143}>
+                    <CategoryTitle>SPECIALTY PIZZA</CategoryTitle>
+                </StyledLink>
             </Menu>
         </Nav>
     );
@@ -62,7 +44,7 @@ const Menu = styled.div`
 
 const StyledLink = styled(Link)`
     margin: 0px;
-    padding: 0px 15px;
+    padding:  0px 15px;
     text-decoration: none;
     cursor: pointer;
 
